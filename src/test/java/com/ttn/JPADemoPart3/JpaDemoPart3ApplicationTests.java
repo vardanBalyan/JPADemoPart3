@@ -116,4 +116,30 @@ class JpaDemoPart3ApplicationTests {
 
 		authorRepository.save(author1);
 	}
+
+	@Test
+	public void testForOneToManyUniDirectionalAndWithoutAdditionalTable()
+	{
+		Author author1 = new Author();
+		author1.setName("Carter");
+		Address address = new Address();
+
+		address.setLocation("CP");
+		address.setState("Delhi");
+		address.setStreetNumber(23);
+
+		author1.setAddress(address);
+
+		Books book1 = new Books();
+		book1.setBookName("JS");
+
+		Books book2 = new Books();
+		book2.setBookName("Linux");
+
+		author1.addBooks(book1);
+		author1.addBooks(book2);
+
+		authorRepository.save(author1);
+
+	}
 }

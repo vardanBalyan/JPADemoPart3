@@ -15,6 +15,21 @@ import java.util.Set;
     joinColumns = @JoinColumn(name = "authorId", referencedColumnName = "id"),
     inverseJoinColumns = @JoinColumn(name = "bookId", referencedColumnName = "id"))
     private Set<Books> books;
+    *
+
+* For One to many bidirectional:
+* @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private Set<Books> books;
+    *
+
+* For one to many unidirectional:
+*  @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "authorId")
+    private Set<Books> books;
+    *
+
+* For one to many without additional table:
+* same as unidirectional
 */
 
 @Entity
@@ -29,7 +44,8 @@ public class Author {
     private Address address;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)  // tells who own the mapping
     private Set<Subjects> subjects;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "authorId")
     private Set<Books> books;
     public int getId() {
         return id;
@@ -93,7 +109,6 @@ public class Author {
                 books = new HashSet<>();
             }
             books.add(book);
-            book.setAuthor(this);
         }
     }
 }

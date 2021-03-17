@@ -12,6 +12,20 @@ import java.util.Set;
 * For many to many :
 * @ManyToMany(mappedBy = "books")
    private Set<Author> author;
+   *
+
+* For One to many bidirectional
+* @ManyToOne
+    @JoinColumn(name = "authorId")
+    private Author author;
+*
+*  For one to many unidirectional:
+* no annotations applied here and also we do not have object of author
+* class as instance variable
+*
+* For one to many without additional table:
+* same as unidirectional
+*
 * */
 
 @Entity
@@ -22,9 +36,6 @@ public class Books {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String bookName;
-    @ManyToOne
-    @JoinColumn(name = "authorId")
-    private Author author;
 
     public int getId() {
         return id;
@@ -42,11 +53,4 @@ public class Books {
         this.bookName = bookName;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
-    }
 }
