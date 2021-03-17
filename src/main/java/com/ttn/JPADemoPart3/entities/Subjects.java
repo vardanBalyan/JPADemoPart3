@@ -7,9 +7,13 @@ import javax.persistence.*;
 public class Subjects {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String subjectName;
+
+    @ManyToOne
+    @JoinColumn(name = "authorId")
+    private Author author;
 
     public int getId() {
         return id;
@@ -25,5 +29,13 @@ public class Subjects {
 
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }
