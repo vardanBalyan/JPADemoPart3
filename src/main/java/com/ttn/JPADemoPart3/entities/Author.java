@@ -8,6 +8,13 @@ import java.util.Set;
 * for one to one :
 * @OneToOne(mappedBy = "author", cascade = CascadeType.ALL)
     private Books books; getter and setter for books
+
+* For many to many :
+*  @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "authors_book",
+    joinColumns = @JoinColumn(name = "authorId", referencedColumnName = "id"),
+    inverseJoinColumns = @JoinColumn(name = "bookId", referencedColumnName = "id"))
+    private Set<Books> books;
 */
 
 @Entity
@@ -22,10 +29,7 @@ public class Author {
     private Address address;
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)  // tells who own the mapping
     private Set<Subjects> subjects;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "authors_book",
-            joinColumns = @JoinColumn(name = "authorId", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "bookId", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private Set<Books> books;
     public int getId() {
         return id;
@@ -89,6 +93,7 @@ public class Author {
                 books = new HashSet<>();
             }
             books.add(book);
+            book.setAuthor(this);
         }
     }
 }

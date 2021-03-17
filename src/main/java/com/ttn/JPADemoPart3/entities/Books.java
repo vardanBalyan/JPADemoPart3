@@ -8,6 +8,10 @@ import java.util.Set;
 * @OneToOne
    @JoinColumn(name = "authorId")
    private Author author;  getter and setter for author
+
+* For many to many :
+* @ManyToMany(mappedBy = "books")
+   private Set<Author> author;
 * */
 
 @Entity
@@ -18,8 +22,9 @@ public class Books {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String bookName;
-    @ManyToMany(mappedBy = "books")
-    private Set<Author> author;
+    @ManyToOne
+    @JoinColumn(name = "authorId")
+    private Author author;
 
     public int getId() {
         return id;
@@ -37,11 +42,11 @@ public class Books {
         this.bookName = bookName;
     }
 
-    public Set<Author> getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(Set<Author> author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 }

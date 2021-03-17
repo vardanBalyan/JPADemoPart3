@@ -91,4 +91,29 @@ class JpaDemoPart3ApplicationTests {
 
 		authorRepository.save(author);
 	}
+
+	@Test
+	public void testOneToManyBiDirectional()
+	{
+		Author author1 = new Author();
+		author1.setName("Richard");
+		Address address = new Address();
+
+		address.setLocation("Janak Puri");
+		address.setState("Delhi");
+		address.setStreetNumber(9);
+
+		author1.setAddress(address);
+
+		Books book1 = new Books();
+		book1.setBookName("Python");
+
+		Books book2 = new Books();
+		book2.setBookName("Cavalry Knights");
+
+		author1.addBooks(book1);
+		author1.addBooks(book2);
+
+		authorRepository.save(author1);
+	}
 }
